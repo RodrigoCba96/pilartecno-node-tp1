@@ -1,6 +1,7 @@
 import express from "express";
 import Joi from "joi";
 import starsController from './controllers/starsController.js';  
+import starsRoutes from './routes/starsRoutes.js';
 
 const app = express();
 const PORT = 3000;
@@ -94,8 +95,8 @@ const estrellas = [
 
  ];
 
-app.use(express.json());
-app.use('/stars', starsController);
+ app.use(express.json());
+ app.use('/stars', starsRoutes);
 
 app.get('/stars', (req, res) => {
   const { type } = req.query;

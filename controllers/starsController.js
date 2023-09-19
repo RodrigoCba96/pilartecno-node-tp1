@@ -3,10 +3,9 @@ import Joi from "joi";
 
 const router = express.Router();
 
-const estrellas = [
- ];
+const estrellas = [];
 
-router.get('/', (req, res) => {
+ router.get('/', (req, res) => {
   const { type } = req.query;
   let estrellasFiltradas = estrellas;
 
@@ -19,25 +18,25 @@ router.get('/', (req, res) => {
   res.status(200).json(estrellasFiltradas);
 });
 
-router.post('/', (req, res) => {
-  const schema = Joi.object({
-    id: Joi.number().required(),
-    name: Joi.array().items(Joi.string()).required(),
-    type: Joi.string().required(),
-    distancia: Joi.string().required(),
-    mass: Joi.string().required(),
-    radius: Joi.string().required(),
-    temperature: Joi.string().required(),
-    luminosity: Joi.string().required(),
-    age: Joi.string().required(),
-    composition: Joi.object({
-      hydrogen: Joi.string().required(),
-      helium: Joi.string().required(),
-      otros_elementos: Joi.string().required(),
-    }).required(),
-    stellar_history: Joi.string().required(),
-  });
+ const schema = Joi.object({
+  id: Joi.number().required(),
+  name: Joi.array().items(Joi.string()).required(),
+  type: Joi.string().required(),
+  distancia: Joi.string().required(),
+  mass: Joi.string().required(),
+  radius: Joi.string().required(),
+  temperature: Joi.string().required(),
+  luminosity: Joi.string().required(),
+  age: Joi.string().required(),
+  composition: Joi.object({
+    hydrogen: Joi.string().required(),
+    helium: Joi.string().required(),
+    otros_elementos: Joi.string().required(),
+  }).required(),
+  stellar_history: Joi.string().required(),
+});
 
+ router.post('/', (req, res) => {
   const { error } = schema.validate(req.body);
 
   if (error) {
@@ -55,7 +54,7 @@ router.post('/', (req, res) => {
   }
 });
 
-router.get('/:id', (req, res) => {
+ router.get('/:id', (req, res) => {
   const { id } = req.params;
   const estrellaEncontrada = estrellas.find(
     (estrella) => estrella.id === parseInt(id)
